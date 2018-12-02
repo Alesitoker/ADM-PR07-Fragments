@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 
-public class ListUsersActivityViewModelFactory implements ViewModelProvider.Factory {
+public class ListUsersFragmentViewModelFactory implements ViewModelProvider.Factory {
 
     private Database database;
 
-    public ListUsersActivityViewModelFactory(Database database) {
+    public ListUsersFragmentViewModelFactory(Database database) {
         this.database = database;
     }
 
@@ -17,6 +17,6 @@ public class ListUsersActivityViewModelFactory implements ViewModelProvider.Fact
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new ListUsersActivityViewModel(database);
+        return (T) new ListUsersFragmentViewModel(database);
     }
 }

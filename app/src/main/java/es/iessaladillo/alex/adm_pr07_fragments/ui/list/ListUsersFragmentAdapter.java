@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
 
-public class ListUsersActivityAdapter extends ListAdapter<User, ListUsersActivityAdapter.ViewHolder> {
+public class ListUsersFragmentAdapter extends ListAdapter<User, ListUsersFragmentAdapter.ViewHolder> {
 
     private OnEditUserClickListener onEditUserClickListener;
     private OnDeleteUserClickListener onDeleteUserClickListener;
 
-    public ListUsersActivityAdapter() {
+    public ListUsersFragmentAdapter() {
         super(new DiffUtil.ItemCallback<User>() {
             @Override
             public boolean areItemsTheSame(@NonNull User oldItem, @NonNull User newItem) {

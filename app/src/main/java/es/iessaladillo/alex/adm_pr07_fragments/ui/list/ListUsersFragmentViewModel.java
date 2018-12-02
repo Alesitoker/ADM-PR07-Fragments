@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
 
-public class ListUsersActivityViewModel extends ViewModel {
+public class ListUsersFragmentViewModel extends ViewModel {
 
     private final Database database;
     private LiveData<List<User>> users;
 
-    public ListUsersActivityViewModel(Database database) {
+    public ListUsersFragmentViewModel(Database database) {
         this.database = database;
     }
 

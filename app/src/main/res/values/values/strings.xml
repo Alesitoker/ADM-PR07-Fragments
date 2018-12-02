@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">List users</string>
+    <string name="avatar_label">Select Avatar</string>
+    <string name="profile_user">User profile</string>
+    <string name="main_invalid_data">Invalid data</string>
+    <string name="main_save">Save</string>
+    <string name="main_saved_succesfully">Student saved successfully</string>
+    <string name="main_error_saving">Error saving student</string>
+    <string name="avatar_select">Select</string>
+    <string name="activity_main_lblName">Name</string>
+    <string name="activity_main_txtName">(name)</string>
+    <string name="activity_main_lblEmail">email</string>
+    <string name="activity_main_txtEmail">(email)</string>
+    <string name="activity_main_lblPhonenumber">Phone number</string>
+    <string name="activity_main_txtPhonenumber">(phone)</string>
+    <string name="activity_main_lblAddress">Address</string>
+    <string name="activity_main_txtAddress">(address)</string>
+    <string name="activity_main_lblWeb">Web</string>
+    <string name="activity_main_txtWeb">(url)</string>
+    <string name="activity_main_Description_imgAvatar">Avatar image</string>
+    <string name="description_imgWeb">Icon web</string>
+    <string name="description_imgAddress">Icon map</string>
+    <string name="description_imgPhonenumber">Icon phone</string>
+    <string name="description_imgEmail">Icon email</string>
+    <string name="description_imgAvatar1">Avatar 1</string>
+    <string name="description_imgAvatar2">Avatar 2</string>
+    <string name="description_imgAvatar3">Avatar 3</string>
+    <string name="description_imgAvatar4">Avatar 4</string>
+    <string name="description_imgAvatar5">Avatar 5</string>
+    <string name="description_imgAvatar6">Avatar 6</string>
+    <string name="DimensionRatio_land_imgAvatar">w,1:1.8</string>
+    <string name="DimensionRatio_imgAvatar">h, 16:9</string>
+    <string name="list_no_users_yet">No users yet</string>
+    <string name="list_item_btnEdit">EDIT</string>
+    <string name="list_item_btnDelete">DELETE</string>
+</resources>
