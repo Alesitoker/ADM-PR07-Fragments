@@ -1,4 +1,4 @@
-package es.iessaladillo.alex.adm_pr07_fragments.ui.main;
+package es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
@@ -21,5 +21,11 @@ public class MainActivity extends AppCompatActivity {
     private void loadInitialFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent,
                 ListUsersFragment.newInstance(), ListUsersFragment.class.getSimpleName()).commit();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

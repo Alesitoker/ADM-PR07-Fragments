@@ -16,14 +16,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
-import es.iessaladillo.alex.adm_pr07_fragments.databinding.ActivityListBinding;
+import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentListBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
 
 public class ListUsersFragment extends Fragment {
 
     private ListUsersFragmentViewModel viewModel;
-    private ActivityListBinding b;
+    private FragmentListBinding b;
     private ListUsersFragmentAdapter listAdapter;
 
     public static ListUsersFragment newInstance() {
@@ -33,9 +33,8 @@ public class ListUsersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        b = DataBindingUtil.inflate(inflater, R.layout.activity_list, container, false);
-        View v = b.getRoot();
-        return v;
+        b = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false);
+        return b.getRoot();
     }
 
     @Override

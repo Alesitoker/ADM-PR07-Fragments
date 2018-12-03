@@ -1,4 +1,4 @@
-package es.iessaladillo.alex.adm_pr07_fragments.ui.main;
+package es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

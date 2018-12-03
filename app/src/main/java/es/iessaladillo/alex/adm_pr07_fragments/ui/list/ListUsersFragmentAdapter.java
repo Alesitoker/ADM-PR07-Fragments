@@ -39,7 +39,7 @@ public class ListUsersFragmentAdapter extends ListAdapter<User, ListUsersFragmen
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false), onEditUserClickListener, onDeleteUserClickListener);
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_list_item, parent, false), onEditUserClickListener, onDeleteUserClickListener);
     }
 
     @Override

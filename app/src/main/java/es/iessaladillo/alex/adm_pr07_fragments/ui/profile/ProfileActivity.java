@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_full);
+        setContentView(R.layout.fragment_profile_full);
         viewModel = ViewModelProviders.of(this).get(ProfileActivityViewModel.class);
         getIntentData();
         initViews();
@@ -246,7 +246,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
+        getMenuInflater().inflate(R.menu.fragment_profile, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
