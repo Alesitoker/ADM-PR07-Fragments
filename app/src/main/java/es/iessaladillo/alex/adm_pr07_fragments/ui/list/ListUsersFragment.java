@@ -19,12 +19,14 @@ import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentListBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity.MainActivityViewModel;
 
 public class ListUsersFragment extends Fragment {
 
     private ListUsersFragmentViewModel viewModel;
     private FragmentListBinding b;
     private ListUsersFragmentAdapter listAdapter;
+    private MainActivityViewModel activityViewModel;
 
     public static ListUsersFragment newInstance() {
         return new ListUsersFragment();
@@ -42,6 +44,7 @@ public class ListUsersFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this, new ListUsersFragmentViewModelFactory(
                 Database.getInstance())).get(ListUsersFragmentViewModel.class);
+        activityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         setupViews();
         observerUsers();
     }
@@ -74,7 +77,7 @@ public class ListUsersFragment extends Fragment {
     }
 
     private void openProfile(User user) {
-
+        activityViewModel.setUser(user);
     }
     private void addUser() {
         openProfile(new User());

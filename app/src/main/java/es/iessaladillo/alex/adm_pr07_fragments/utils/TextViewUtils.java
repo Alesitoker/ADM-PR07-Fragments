@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import es.iessaladillo.alex.adm_pr07_fragments.R;
-import es.iessaladillo.alex.adm_pr07_fragments.ui.profile.ProfileActivityViewModel;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.profile.ProfileFragmentViewModel;
 
 
 public class TextViewUtils {
     private TextViewUtils() {
     }
 
-    public static void afterTextChanged(EditText text, TextView view, Context context, ProfileActivityViewModel viewModel) {
+    public static void afterTextChanged(EditText text, TextView view, Context context, ProfileFragmentViewModel viewModel) {
         text.addTextChangedListener(new TextWatcher() {
             boolean validation;
             @Override
@@ -37,7 +37,7 @@ public class TextViewUtils {
         });
     }
 
-    public static void afterTextChanged(EditText text, TextView view, ImageView img, Context context, ProfileActivityViewModel viewModel) {
+    public static void afterTextChanged(EditText text, TextView view, ImageView img, Context context, ProfileFragmentViewModel viewModel) {
         text.addTextChangedListener(new TextWatcher() {
             boolean validation;
             @Override
@@ -65,7 +65,7 @@ public class TextViewUtils {
         }
     }
 
-    public static void onTextChanged(EditText txt, TextView lbl, ImageView img, Context context, ProfileActivityViewModel viewModel) {
+    public static void onTextChanged(EditText txt, TextView lbl, ImageView img, Context context, ProfileFragmentViewModel viewModel) {
         txt.addTextChangedListener(new TextWatcher() {
             boolean validation = false;
             @Override
