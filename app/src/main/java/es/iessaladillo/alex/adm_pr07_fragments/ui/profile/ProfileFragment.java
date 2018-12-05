@@ -22,6 +22,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentProfileFullBinding;
@@ -93,13 +94,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setupActionBar();
-        initViews();
-        viewModel = ViewModelProviders.of(this, new ProfileFragmentViewModelFactory(
-                Database.getInstance())).get(ProfileFragmentViewModel.class);
         Objects.requireNonNull(getArguments());
         Objects.requireNonNull(getArguments().getParcelable(ARG_USER));
+        viewModel = ViewModelProviders.of(this, new ProfileFragmentViewModelFactory(
+                Database.getInstance())).get(ProfileFragmentViewModel.class);
         user = getArguments().getParcelable(ARG_USER);
+        setupActionBar();
+        initViews();
         if (savedInstanceState != null) {
             setupSaveData();
         }
