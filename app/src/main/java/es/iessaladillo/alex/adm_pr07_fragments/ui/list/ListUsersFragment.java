@@ -44,7 +44,7 @@ public class ListUsersFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this, new ListUsersFragmentViewModelFactory(
                 Database.getInstance())).get(ListUsersFragmentViewModel.class);
-        activityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
         setupViews();
         observerUsers();
     }

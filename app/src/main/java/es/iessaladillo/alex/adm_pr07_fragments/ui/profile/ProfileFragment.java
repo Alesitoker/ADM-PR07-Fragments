@@ -1,6 +1,5 @@
 package es.iessaladillo.alex.adm_pr07_fragments.ui.profile;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,12 +21,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentProfileFullBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity.MainActivityViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.IntentsUtils;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.KeyboardUtils;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.SnackbarUtils;
@@ -41,6 +40,7 @@ public class ProfileFragment extends Fragment {
     private boolean isNewUser = false;
     private FragmentProfileFullBinding b;
     private ProfileFragmentViewModel viewModel;
+    private MainActivityViewModel activityViewModel;
 
     public static ProfileFragment newInstance(User user) {
         ProfileFragment fragment = new ProfileFragment();
@@ -98,6 +98,7 @@ public class ProfileFragment extends Fragment {
         Objects.requireNonNull(getArguments().getParcelable(ARG_USER));
         viewModel = ViewModelProviders.of(this, new ProfileFragmentViewModelFactory(
                 Database.getInstance())).get(ProfileFragmentViewModel.class);
+        activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
         user = getArguments().getParcelable(ARG_USER);
         setupActionBar();
         initViews();
@@ -332,6 +333,7 @@ public class ProfileFragment extends Fragment {
         } else {
             viewModel.saveEditedUser(user);
         }
+        activityViewModel.setUser(user);
     }
 
     private void save() {
