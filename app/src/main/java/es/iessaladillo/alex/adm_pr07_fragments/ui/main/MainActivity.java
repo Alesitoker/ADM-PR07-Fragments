@@ -1,10 +1,12 @@
-package es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity;
+package es.iessaladillo.alex.adm_pr07_fragments.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
+import es.iessaladillo.alex.adm_pr07_fragments.local.model.Avatar;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.avatar.AvatarFragment;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.list.ListUsersFragment;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.profile.ProfileFragment;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.FragmentUtils;
@@ -21,10 +23,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         if (getSupportFragmentManager().findFragmentByTag(
-                ListUsersFragment.class.getSimpleName()) == null && savedInstanceState == null) {
+                ListUsersFragment.class.getSimpleName()) == null) {
             loadInitialFragment();
         }
-        viewModel.getUser().observe(this, user -> openProfile(user));
+        viewModel.getUser().observe(this, this::openProfile);
+        viewModel.getAvatar().observe(this, this::openSelectAvatar);
     }
 
     private void loadInitialFragment() {
@@ -33,13 +36,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openProfile(User user) {
-        if (getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getSimpleName()) == null) {
+        if (getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getSimpleName()) == null && viewModel.isOpen()) {
             FragmentUtils.replaceFragmentAddToBackstack(getSupportFragmentManager(), R.id.flContent,
                     ProfileFragment.newInstance(user),
                     ProfileFragment.class.getSimpleName(),
                     ProfileFragment.class.getSimpleName(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        } else {
-            getSupportFragmentManager().popBackStack();
+            viewModel.setSubmit(false);
+        }
+    }
+
+    public void openSelectAvatar(Avatar avatar) {
+        if (getSupportFragmentManager().findFragmentByTag(AvatarFragment.class.getSimpleName()) == null && viewModel.isOpenA()) {
+            FragmentUtils.replaceFragmentAddToBackstack(getSupportFragmentManager(), R.id.flContent,
+                    AvatarFragment.newInstance(avatar),
+                    AvatarFragment.class.getSimpleName(),
+                    AvatarFragment.class.getSimpleName(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         }
     }
 

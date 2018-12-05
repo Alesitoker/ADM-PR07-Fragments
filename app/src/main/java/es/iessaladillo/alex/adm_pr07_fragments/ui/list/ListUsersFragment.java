@@ -10,6 +10,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,7 +21,7 @@ import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentListBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
-import es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity.MainActivityViewModel;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.main.MainActivityViewModel;
 
 public class ListUsersFragment extends Fragment {
 
@@ -45,6 +47,7 @@ public class ListUsersFragment extends Fragment {
         viewModel = ViewModelProviders.of(this, new ListUsersFragmentViewModelFactory(
                 Database.getInstance())).get(ListUsersFragmentViewModel.class);
         activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
+        setupActionBar();
         setupViews();
         observerUsers();
     }
@@ -77,9 +80,18 @@ public class ListUsersFragment extends Fragment {
     }
 
     private void openProfile(User user) {
+        activityViewModel.setOpen(true);
         activityViewModel.setUser(user);
     }
     private void addUser() {
         openProfile(new User());
+    }
+
+    private void setupActionBar() {
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle(R.string.app_name);
+        }
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,10 +24,12 @@ import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentAvatarBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.Avatar;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.main.MainActivityViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.ResourcesUtils;
 
 public class AvatarFragment extends Fragment {
 
+    private static String ARG_AVATAR = "ARG_AVATAR";
     private ImageView imgAvatars[] = new ImageView[6];
     private TextView lblAvatars[] = new TextView[6];
     private final byte positionAvatar1 = 0;
@@ -37,9 +40,16 @@ public class AvatarFragment extends Fragment {
     private final byte positionAvatar6 = 5;
     private FragmentAvatarBinding b;
     private AvatarFragmentViewModel viewModel;
+    private MainActivityViewModel activityViewModel;
 
-    public static AvatarFragment newInstance() {
-        return new AvatarFragment();
+    public static AvatarFragment newInstance(Avatar avatar) {
+        AvatarFragment fragment = new AvatarFragment();
+        Bundle arguments = new Bundle();
+
+        arguments.putParcelable(ARG_AVATAR, avatar);
+        fragment.setArguments(arguments);
+
+        return fragment;
     }
 
     @Override
@@ -58,8 +68,15 @@ public class AvatarFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Objects.requireNonNull(getArguments());
+        Objects.requireNonNull(getArguments().getParcelable(ARG_AVATAR));
+
         viewModel = ViewModelProviders.of(this, new AvatarFragmentViewModelFactory(
                 Database.getInstance())).get(AvatarFragmentViewModel.class);
+        activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
+        if (viewModel.getAvatar() == null) {
+            viewModel.setAvatar(getArguments().getParcelable(ARG_AVATAR));
+        }
         setupActionBar();
         setupAvatar();
         startAvatar();
@@ -167,11 +184,11 @@ public class AvatarFragment extends Fragment {
     }
 
     private void selectImage(ImageView imageView) {
-        imageView.setAlpha(ResourcesUtils.getFloat(getContext(), R.dimen.avatar_selected_image_alpha));
+        imageView.setAlpha(ResourcesUtils.getFloat(requireContext(), R.dimen.avatar_selected_image_alpha));
     }
 
     private void deselectImage(ImageView imageView) {
-        imageView.setAlpha(ResourcesUtils.getFloat(getContext(), R.dimen.avatar_not_selected_image_alpha));
+        imageView.setAlpha(ResourcesUtils.getFloat(requireContext(), R.dimen.avatar_not_selected_image_alpha));
     }
 
     @Override
@@ -190,6 +207,14 @@ public class AvatarFragment extends Fragment {
     }
 
     private void submitAvatar() {
+        activityViewModel.setAvatar(viewModel.getAvatar());
+        activityViewModel.setSubmit(true);
+        requireActivity().getSupportFragmentManager().popBackStack();
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activityViewModel.setOpenA(false);
     }
 }

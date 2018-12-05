@@ -25,8 +25,9 @@ import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentProfileFullBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
+import es.iessaladillo.alex.adm_pr07_fragments.local.model.Avatar;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
-import es.iessaladillo.alex.adm_pr07_fragments.ui.mainActivity.MainActivityViewModel;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.main.MainActivityViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.IntentsUtils;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.KeyboardUtils;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.SnackbarUtils;
@@ -96,6 +97,7 @@ public class ProfileFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Objects.requireNonNull(getArguments());
         Objects.requireNonNull(getArguments().getParcelable(ARG_USER));
+
         viewModel = ViewModelProviders.of(this, new ProfileFragmentViewModelFactory(
                 Database.getInstance())).get(ProfileFragmentViewModel.class);
         activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
@@ -105,10 +107,13 @@ public class ProfileFragment extends Fragment {
         if (savedInstanceState != null) {
             setupSaveData();
         }
-        if (user.getAvatar() != null) {
-            startProfile();
-        } else {
-            isNewUser = true;
+
+        if (!activityViewModel.isSubmit()) {
+            if (user.getAvatar() != null) {
+                startProfile();
+            } else {
+                isNewUser = true;
+            }
         }
     }
 
@@ -228,13 +233,17 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showAvatar() {
+        if (activityViewModel.isSubmit()) {
+            viewModel.setAvatar(activityViewModel.getAvatar().getValue());
+        }
         b.imgAvatar.setImageResource(viewModel.getAvatar().getImageResId());
         b.imgAvatar.setTag(viewModel.getAvatar().getImageResId());
         b.lblAvatar.setText(viewModel.getAvatar().getName());
     }
 
     private void changeImg() {
-
+        activityViewModel.setOpenA(true);
+        activityViewModel.setAvatar(viewModel.getAvatar());
     }
 
     @Override
@@ -333,7 +342,6 @@ public class ProfileFragment extends Fragment {
         } else {
             viewModel.saveEditedUser(user);
         }
-        activityViewModel.setUser(user);
     }
 
     private void save() {
@@ -344,6 +352,13 @@ public class ProfileFragment extends Fragment {
         } else {
             SnackbarUtils.snackbar(b.acProfile.lblName, getString(R.string.main_saved_succesfully));
             savedUser();
+            requireActivity().getSupportFragmentManager().popBackStack();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activityViewModel.setOpen(false);
     }
 }
