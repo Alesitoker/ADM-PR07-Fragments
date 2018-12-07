@@ -14,6 +14,7 @@ public class ProfileFragmentViewModel extends ViewModel {
     private boolean valid_phonenumber = true;
     private boolean valid_address = true;
     private boolean valid_web = true;
+    private boolean newUser = false;
 
     public ProfileFragmentViewModel(Database database) {
         this.database = database;
@@ -69,6 +70,14 @@ public class ProfileFragmentViewModel extends ViewModel {
 
     public void setValid_web(boolean valid_web) {
         this.valid_web = valid_web;
+    }
+
+    public boolean isNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(boolean newUser) {
+        this.newUser = newUser;
     }
 
     public void saveEditedUser(User user) {

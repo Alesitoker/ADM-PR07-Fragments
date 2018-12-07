@@ -25,7 +25,6 @@ import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentProfileFullBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
-import es.iessaladillo.alex.adm_pr07_fragments.local.model.Avatar;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.main.MainActivityViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.IntentsUtils;
@@ -38,7 +37,6 @@ public class ProfileFragment extends Fragment {
 
     private static final String ARG_USER = "ARG_USER";
     private User user;
-    private boolean isNewUser = false;
     private FragmentProfileFullBinding b;
     private ProfileFragmentViewModel viewModel;
     private MainActivityViewModel activityViewModel;
@@ -112,7 +110,7 @@ public class ProfileFragment extends Fragment {
             if (user.getAvatar() != null) {
                 startProfile();
             } else {
-                isNewUser = true;
+                viewModel.setNewUser(true);
             }
         }
     }
@@ -337,7 +335,7 @@ public class ProfileFragment extends Fragment {
         user.setAddress(String.valueOf(b.acProfile.txtAddress.getText()));
         user.setWeb(String.valueOf(b.acProfile.txtWeb.getText()));
 
-        if (isNewUser) {
+        if (viewModel.isNewUser()) {
             viewModel.addUser(user);
         } else {
             viewModel.saveEditedUser(user);
