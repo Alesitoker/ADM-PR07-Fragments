@@ -7,7 +7,7 @@ import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 
 public class ProfileFragmentViewModelFactory implements ViewModelProvider.Factory {
 
-    Database database;
+    private Database database;
 
     public ProfileFragmentViewModelFactory(Database database) {
         this.database = database;

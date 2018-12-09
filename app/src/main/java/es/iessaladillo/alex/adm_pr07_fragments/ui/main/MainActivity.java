@@ -16,13 +16,11 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity implements OnChangeAvatarListener {
 
-    private MainActivityViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        MainActivityViewModel viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         if (getSupportFragmentManager().findFragmentByTag(
                 ListUsersFragment.class.getSimpleName()) == null) {
             loadInitialFragment();
