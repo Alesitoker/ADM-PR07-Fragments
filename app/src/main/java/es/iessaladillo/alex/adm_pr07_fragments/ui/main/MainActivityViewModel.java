@@ -11,7 +11,6 @@ public class MainActivityViewModel extends ViewModel {
 
     private MutableLiveData<Event<User>> user = new MutableLiveData<>();
     private Avatar avatar;
-    private boolean submit = false;
 
     public LiveData<Event<User>> getUser() {
         return user;
@@ -28,13 +27,4 @@ public class MainActivityViewModel extends ViewModel {
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
-
-    public boolean isSubmit() {
-        return submit;
-    }
-
-    public void setSubmit(boolean submit) {
-        this.submit = submit;
-    }
-
 }

@@ -208,7 +208,6 @@ public class AvatarFragment extends Fragment {
 
     private void submitAvatar() {
         activityViewModel.setAvatar(viewModel.getAvatar());
-        activityViewModel.setSubmit(true);
         requireActivity().getSupportFragmentManager().popBackStack();
     }
 }

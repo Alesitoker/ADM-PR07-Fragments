@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment {
             setupSaveData();
         }
 
-        if (!activityViewModel.isSubmit()) {
+        if (savedInstanceState == null) {
             if (user.getAvatar() != null) {
                 startProfile();
             } else {
@@ -248,7 +248,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showAvatar() {
-        if (activityViewModel.isSubmit()) {
+        if (activityViewModel.getAvatar() != null) {
             viewModel.setAvatar(activityViewModel.getAvatar());
         }
         b.imgAvatar.setImageResource(viewModel.getAvatar().getImageResId());

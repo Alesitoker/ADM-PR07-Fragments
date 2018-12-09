@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnChangeAvatarLis
                     ProfileFragment.newInstance(user),
                     ProfileFragment.class.getSimpleName(),
                     ProfileFragment.class.getSimpleName(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            viewModel.setSubmit(false);
     }
 
     @Override
