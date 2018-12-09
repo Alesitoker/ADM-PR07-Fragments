@@ -1,5 +1,6 @@
 package es.iessaladillo.alex.adm_pr07_fragments.ui.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import es.iessaladillo.alex.adm_pr07_fragments.R;
 import es.iessaladillo.alex.adm_pr07_fragments.databinding.FragmentProfileFullBinding;
 import es.iessaladillo.alex.adm_pr07_fragments.local.Database;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.list.OnChangeAvatarListener;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.main.MainActivityViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.IntentsUtils;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.KeyboardUtils;
@@ -40,6 +42,7 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileFullBinding b;
     private ProfileFragmentViewModel viewModel;
     private MainActivityViewModel activityViewModel;
+    private OnChangeAvatarListener listener;
 
     public static ProfileFragment newInstance(User user) {
         ProfileFragment fragment = new ProfileFragment();
@@ -53,6 +56,20 @@ public class ProfileFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            if (getTargetFragment() != null) {
+                listener = (OnChangeAvatarListener) getTargetFragment();
+            } else {
+                listener = (OnChangeAvatarListener) context;
+            }
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Listener must implement YesNoDialogFragment.Listener");
+        }
     }
 
     @Override
@@ -232,7 +249,7 @@ public class ProfileFragment extends Fragment {
 
     private void showAvatar() {
         if (activityViewModel.isSubmit()) {
-            viewModel.setAvatar(activityViewModel.getAvatar().getValue());
+            viewModel.setAvatar(activityViewModel.getAvatar());
         }
         b.imgAvatar.setImageResource(viewModel.getAvatar().getImageResId());
         b.imgAvatar.setTag(viewModel.getAvatar().getImageResId());
@@ -240,8 +257,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void changeImg() {
-        activityViewModel.setOpenA(true);
-        activityViewModel.setAvatar(viewModel.getAvatar());
+        listener.onChangeAvatar(viewModel.getAvatar());
     }
 
     @Override
@@ -352,11 +368,5 @@ public class ProfileFragment extends Fragment {
             savedUser();
             requireActivity().getSupportFragmentManager().popBackStack();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        activityViewModel.setOpen(false);
     }
 }

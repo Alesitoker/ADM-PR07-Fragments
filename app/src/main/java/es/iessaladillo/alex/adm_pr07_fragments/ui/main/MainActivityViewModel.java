@@ -4,38 +4,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.Avatar;
+import es.iessaladillo.alex.adm_pr07_fragments.local.model.Event;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
 
 public class MainActivityViewModel extends ViewModel {
 
-    private MutableLiveData<User> user = new MutableLiveData<>();
-    private MutableLiveData<Avatar> avatar = new MutableLiveData<>();
-    private boolean open = false;
+    private MutableLiveData<Event<User>> user = new MutableLiveData<>();
+    private Avatar avatar;
     private boolean submit = false;
-    private boolean openA = false;
 
-    public LiveData<User> getUser() {
+    public LiveData<Event<User>> getUser() {
         return user;
     }
 
     public void setUser(User user) {
-        this.user.setValue(user);
+        this.user.setValue(new Event<>(user));
     }
 
-    public LiveData<Avatar> getAvatar() {
+    public Avatar getAvatar() {
         return avatar;
     }
 
     public void setAvatar(Avatar avatar) {
-        this.avatar.setValue(avatar);
-    }
-
-    public boolean isOpen() {
-        return open;
-    }
-
-    public void setOpen(boolean open) {
-        this.open = open;
+        this.avatar = avatar;
     }
 
     public boolean isSubmit() {
@@ -46,11 +37,4 @@ public class MainActivityViewModel extends ViewModel {
         this.submit = submit;
     }
 
-    public boolean isOpenA() {
-        return openA;
-    }
-
-    public void setOpenA(boolean openA) {
-        this.openA = openA;
-    }
 }

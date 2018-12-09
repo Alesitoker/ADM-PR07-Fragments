@@ -211,10 +211,4 @@ public class AvatarFragment extends Fragment {
         activityViewModel.setSubmit(true);
         requireActivity().getSupportFragmentManager().popBackStack();
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        activityViewModel.setOpenA(false);
-    }
 }

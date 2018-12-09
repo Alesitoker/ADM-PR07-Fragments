@@ -80,7 +80,6 @@ public class ListUsersFragment extends Fragment {
     }
 
     private void openProfile(User user) {
-        activityViewModel.setOpen(true);
         activityViewModel.setUser(user);
     }
     private void addUser() {

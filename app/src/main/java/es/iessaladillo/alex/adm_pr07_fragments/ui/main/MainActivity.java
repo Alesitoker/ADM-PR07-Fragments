@@ -8,12 +8,13 @@ import es.iessaladillo.alex.adm_pr07_fragments.local.model.Avatar;
 import es.iessaladillo.alex.adm_pr07_fragments.local.model.User;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.avatar.AvatarFragment;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.list.ListUsersFragment;
+import es.iessaladillo.alex.adm_pr07_fragments.ui.list.OnChangeAvatarListener;
 import es.iessaladillo.alex.adm_pr07_fragments.ui.profile.ProfileFragment;
 import es.iessaladillo.alex.adm_pr07_fragments.utils.FragmentUtils;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnChangeAvatarListener {
 
     private MainActivityViewModel viewModel;
 
@@ -26,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
                 ListUsersFragment.class.getSimpleName()) == null) {
             loadInitialFragment();
         }
-        viewModel.getUser().observe(this, this::openProfile);
-        viewModel.getAvatar().observe(this, this::openSelectAvatar);
+        viewModel.getUser().observe(this, userEvent -> {
+            User user = userEvent.getContentIfNotHandled();
+            if (user != null) {
+                openProfile(user);
+            }
+        });
     }
 
     private void loadInitialFragment() {
@@ -36,22 +41,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openProfile(User user) {
-        if (getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getSimpleName()) == null && viewModel.isOpen()) {
             FragmentUtils.replaceFragmentAddToBackstack(getSupportFragmentManager(), R.id.flContent,
                     ProfileFragment.newInstance(user),
                     ProfileFragment.class.getSimpleName(),
                     ProfileFragment.class.getSimpleName(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             viewModel.setSubmit(false);
-        }
     }
 
-    public void openSelectAvatar(Avatar avatar) {
-        if (getSupportFragmentManager().findFragmentByTag(AvatarFragment.class.getSimpleName()) == null && viewModel.isOpenA()) {
-            FragmentUtils.replaceFragmentAddToBackstack(getSupportFragmentManager(), R.id.flContent,
-                    AvatarFragment.newInstance(avatar),
-                    AvatarFragment.class.getSimpleName(),
-                    AvatarFragment.class.getSimpleName(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        }
+    @Override
+    public void onChangeAvatar(Avatar avatar) {
+        FragmentUtils.replaceFragmentAddToBackstack(getSupportFragmentManager(), R.id.flContent,
+                AvatarFragment.newInstance(avatar),
+                AvatarFragment.class.getSimpleName(),
+                AvatarFragment.class.getSimpleName(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
     }
 
     @Override
