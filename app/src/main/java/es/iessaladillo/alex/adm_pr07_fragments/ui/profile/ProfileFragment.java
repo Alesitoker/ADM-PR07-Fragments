@@ -373,6 +373,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // Ponemos null el avatar para que no modifique el viewModel del profile al volver a crearse el fragmento.
         activityViewModel.setAvatar(null);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }
