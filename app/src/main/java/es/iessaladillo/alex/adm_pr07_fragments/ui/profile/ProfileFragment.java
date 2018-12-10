@@ -369,4 +369,10 @@ public class ProfileFragment extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack();
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activityViewModel.setAvatar(null);
+    }
 }
